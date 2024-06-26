@@ -7,5 +7,5 @@ declare global {
 }
 
 export const getEnv = () => ({
-  appUrl: import.meta.env['VITE_NX_APP_URL'] || env?.appUrl || '',
+  appUrl: import.meta.env.VITE_NX_APP_URL || env?.appUrl || '',
 });
