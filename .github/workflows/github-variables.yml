@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - 'features/*'
   pull_request:
     branches:
       - master
@@ -54,3 +55,10 @@ jobs:
           echo "is_master=${{ steps.set-vars.outputs.is_master }}"
           echo "can_deploy_on_dev=${{ steps.set-vars.outputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ steps.set-vars.outputs.can_deploy_on_production }}"
+  build:
+    needs: set-variables
+    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
+    uses: ./.github/workflows/build.yml
+    with:
+      can_deploy_on_dev: ${{ needs.set-variables.outputs.can_deploy_on_dev }}
+      can_deploy_on_production: ${{ needs.set-variables.outputs.can_deploy_on_production }}
