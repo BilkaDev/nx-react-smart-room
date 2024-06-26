@@ -6,6 +6,13 @@ declare global {
   const env: TConfig;
 }
 
-export const getEnv = () => ({
-  appUrl: import.meta.env.VITE_NX_APP_URL || env?.appUrl || '',
-});
+const testConfig: TConfig = {
+  appUrl: 'http://localhost:4200',
+};
+
+export const getEnv = () => {
+  const config = import.meta.env.NODE_ENV === 'test' ? testConfig : env;
+  return {
+    appUrl: import.meta.env.VITE_NX_APP_URL || config?.appUrl || '',
+  };
+};
