@@ -23,5 +23,5 @@ jobs:
     steps:
       - name: Debug variables
         run: |
-          echo "can_deploy_on_dev=${{ inputs.can_deploy_on_dev }}"
+          echo " can_deploy_on_dev=${{ inputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ inputs.can_deploy_on_production }}"
