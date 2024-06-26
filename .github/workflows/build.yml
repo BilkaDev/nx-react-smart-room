@@ -17,11 +17,23 @@ on:
         type: boolean
 
 jobs:
-  build:
+  build-and-publish:
     name: Build
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.12.2"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
       - name: Debug variables
         run: |
-          echo " can_deploy_on_dev=${{ inputs.can_deploy_on_dev }}"
+          echo "is_develop=${{ inputs.is_develop }}"
+          echo "is_master=${{ inputs.is_master }}"
+          echo "can_deploy_on_dev=${{ inputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ inputs.can_deploy_on_production }}"

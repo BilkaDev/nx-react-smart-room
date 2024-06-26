@@ -43,22 +43,23 @@ jobs:
           echo "is_master=$IS_MASTER" >> $GITHUB_ENV
           echo "can_deploy_on_dev=$CAN_DEPLOY_ON_DEV" >> $GITHUB_ENV
           echo "can_deploy_on_production=$CAN_DEPLOY_ON_PRODUCTION" >> $GITHUB_ENV
-
           echo "is_develop=$IS_DEVELOP" >> $GITHUB_OUTPUT
           echo "is_master=$IS_MASTER" >> $GITHUB_OUTPUT
           echo "can_deploy_on_dev=$CAN_DEPLOY_ON_DEV" >> $GITHUB_OUTPUT
           echo "can_deploy_on_production=$CAN_DEPLOY_ON_PRODUCTION" >> $GITHUB_OUTPUT
-
       - name: Debug variables
         run: |
           echo "is_develop=${{ steps.set-vars.outputs.is_develop }}"
           echo "is_master=${{ steps.set-vars.outputs.is_master }}"
           echo "can_deploy_on_dev=${{ steps.set-vars.outputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ steps.set-vars.outputs.can_deploy_on_production }}"
+
   build:
     needs: set-variables
     if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
     uses: ./.github/workflows/build.yml
     with:
+      is_develop: ${{ needs.set-variables.outputs.is_develop }}
+      is_master: ${{ needs.set-variables.outputs.is_master }}
       can_deploy_on_dev: ${{ needs.set-variables.outputs.can_deploy_on_dev }}
       can_deploy_on_production: ${{ needs.set-variables.outputs.can_deploy_on_production }}
