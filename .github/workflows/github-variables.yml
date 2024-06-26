@@ -23,21 +23,21 @@ jobs:
       - name: Set variables
         id: set-vars
         run: |
-          IS_DEVELOP=false
-          IS_MASTER=false
-          CAN_DEPLOY_ON_DEV=false
-          CAN_DEPLOY_ON_PRODUCTION=false
+          IS_DEVELOP='false'
+          IS_MASTER='false'
+          CAN_DEPLOY_ON_DEV='false'
+          CAN_DEPLOY_ON_PRODUCTION='false'
           if [[ "${GITHUB_REF}" == "refs/heads/develop" ]]; then
-            IS_DEVELOP=true
-            CAN_DEPLOY_ON_DEV=true
+            IS_DEVELOP='true'
+            CAN_DEPLOY_ON_DEV='true'
           fi
           if [[ "${GITHUB_REF}" == "refs/heads/master" ]]; then
-            IS_MASTER=true
-            CAN_DEPLOY_ON_PRODUCTION=true
+            IS_MASTER='true'
+            CAN_DEPLOY_ON_PRODUCTION='true'
           fi
           if [[ "${GITHUB_REF}" == refs/heads/features/* ]]; then
-            IS_DEVELOP=true
-            CAN_DEPLOY_ON_DEV=true
+            IS_DEVELOP='true'
+            CAN_DEPLOY_ON_DEV='true'
           fi
           echo "is_develop=$IS_DEVELOP" >> $GITHUB_ENV
           echo "is_master=$IS_MASTER" >> $GITHUB_ENV

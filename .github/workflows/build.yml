@@ -5,16 +5,16 @@ on:
     inputs:
       is_develop:
         required: true
-        type: boolean
+        type: string
       is_master:
         required: true
-        type: boolean
+        type: string
       can_deploy_on_dev:
         required: true
-        type: boolean
+        type: string
       can_deploy_on_production:
         required: true
-        type: boolean
+        type: string
 
 jobs:
   build-and-publish:
