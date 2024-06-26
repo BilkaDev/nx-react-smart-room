@@ -1,0 +1,56 @@
+name: Github Variables
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  set-variables:
+    runs-on: ubuntu-20.04
+    outputs:
+      is_develop: ${{ steps.set-vars.outputs.is_develop }}
+      is_master: ${{ steps.set-vars.outputs.is_master }}
+      can_deploy_on_dev: ${{ steps.set-vars.outputs.can_deploy_on_dev }}
+      can_deploy_on_production: ${{ steps.set-vars.outputs.can_deploy_on_production }}
+    steps:
+      - name: Set variables
+        id: set-vars
+        run: |
+          IS_DEVELOP=false
+          IS_MASTER=false
+          CAN_DEPLOY_ON_DEV=false
+          CAN_DEPLOY_ON_PRODUCTION=false
+          if [[ "${GITHUB_REF}" == "refs/heads/develop" ]]; then
+            IS_DEVELOP=true
+            CAN_DEPLOY_ON_DEV=true
+          fi
+          if [[ "${GITHUB_REF}" == "refs/heads/master" ]]; then
+            IS_MASTER=true
+            CAN_DEPLOY_ON_PRODUCTION=true
+          fi
+          if [[ "${GITHUB_REF}" == refs/heads/features/* ]]; then
+            IS_DEVELOP=true
+            CAN_DEPLOY_ON_DEV=true
+          fi
+          echo "is_develop=$IS_DEVELOP" >> $GITHUB_ENV
+          echo "is_master=$IS_MASTER" >> $GITHUB_ENV
+          echo "can_deploy_on_dev=$CAN_DEPLOY_ON_DEV" >> $GITHUB_ENV
+          echo "can_deploy_on_production=$CAN_DEPLOY_ON_PRODUCTION" >> $GITHUB_ENV
+
+          echo "is_develop=$IS_DEVELOP" >> $GITHUB_OUTPUT
+          echo "is_master=$IS_MASTER" >> $GITHUB_OUTPUT
+          echo "can_deploy_on_dev=$CAN_DEPLOY_ON_DEV" >> $GITHUB_OUTPUT
+          echo "can_deploy_on_production=$CAN_DEPLOY_ON_PRODUCTION" >> $GITHUB_OUTPUT
+
+      - name: Debug variables
+        run: |
+          echo "is_develop=${{ steps.set-vars.outputs.is_develop }}"
+          echo "is_master=${{ steps.set-vars.outputs.is_master }}"
+          echo "can_deploy_on_dev=${{ steps.set-vars.outputs.can_deploy_on_dev }}"
+          echo "can_deploy_on_production=${{ steps.set-vars.outputs.can_deploy_on_production }}"
