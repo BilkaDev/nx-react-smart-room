@@ -61,7 +61,7 @@ jobs:
           node-version: "20.12.2"
       - name: Install dependencies
         run: npm ci
-      - name: Create config.js file
+      - name: Added env variable to build version
         run: |
           echo VITE_BUILD_VERSION_NUMBER='${{ github.run_id }}' >> .env
       - name: Build
