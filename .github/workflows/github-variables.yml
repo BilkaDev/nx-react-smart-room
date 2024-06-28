@@ -53,12 +53,12 @@ jobs:
           echo "can_deploy_on_dev=${{ steps.set-vars.outputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ steps.set-vars.outputs.can_deploy_on_production }}"
 
-#  build:
-#    needs: set-variables
-#    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
-#    uses: ./.github/workflows/build.yml
-  deploy-to-dev:
+  build:
     needs: set-variables
+    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
+    uses: ./.github/workflows/build.yml
+  deploy-to-dev:
+    needs: build
 #    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' }}
     uses: ./.github/workflows/deploy.yml
     with:

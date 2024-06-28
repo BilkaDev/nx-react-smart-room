@@ -10,10 +10,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    needs: build
+    if: ${{ github.event.inputs.environment == 'deploy' }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: ./deploy
+      - name: Extract files
+        run: unzip './deploy/*.zip' -d './deploy'
+      - name: Create config.js file
+        run: |
+          echo "const env = (() => ({
+          appUrl: {{ inputs.app-url }},
+          }))();" > ./deploy/config.js
+      - name: files in deploy
+        run: ls -la ./deploy
+
 
       - name: Deploy Application
         run: |
