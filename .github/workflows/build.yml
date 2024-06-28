@@ -22,7 +22,6 @@ jobs:
     name: Run linter and prettier
     runs-on: ubuntu-20.04
     needs: set-variables
-    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
