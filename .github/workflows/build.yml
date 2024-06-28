@@ -80,7 +80,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Zip files
-        run: zip -r ${{ github.run_id }}.zip ./dist/apps/digishop
+        run: zip -r ${{ github.run_id }}.zip ./dist/apps/smart-room
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
