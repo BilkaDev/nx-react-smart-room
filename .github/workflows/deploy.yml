@@ -21,7 +21,7 @@ jobs:
       - name: Create config.js file
         run: |
           echo "const env = (() => ({
-          appUrl: ${{ inputs.app-url }}
+          appUrl: "${{ inputs.app-url }}"
           }))();" > ./deploy/dist/apps/smart-room/config.js
       - name: show config.js
         run:  cat ./deploy/dist/apps/smart-room/config.js
