@@ -53,12 +53,16 @@ jobs:
           echo "can_deploy_on_dev=${{ steps.set-vars.outputs.can_deploy_on_dev }}"
           echo "can_deploy_on_production=${{ steps.set-vars.outputs.can_deploy_on_production }}"
 
-  build:
+#  build:
+#    needs: set-variables
+#    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
+#    uses: ./.github/workflows/build.yml
+  deploy-to-dev:
     needs: set-variables
-    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' || needs.set-variables.outputs.can_deploy_on_production == 'true' }}
-    uses: ./.github/workflows/build.yml
+    if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' }}
+    uses: ./.github/workflows/deploy.yml
     with:
-      is_develop: ${{ needs.set-variables.outputs.is_develop }}
-      is_master: ${{ needs.set-variables.outputs.is_master }}
-      can_deploy_on_dev: ${{ needs.set-variables.outputs.can_deploy_on_dev }}
-      can_deploy_on_production: ${{ needs.set-variables.outputs.can_deploy_on_production }}
+      app-url: ${{ env.DEV_APP_URL }}
+
+
+

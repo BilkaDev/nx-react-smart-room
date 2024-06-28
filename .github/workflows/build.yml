@@ -2,19 +2,6 @@ name: Build
 
 on:
   workflow_call:
-    inputs:
-      is_develop:
-        required: true
-        type: string
-      is_master:
-        required: true
-        type: string
-      can_deploy_on_dev:
-        required: true
-        type: string
-      can_deploy_on_production:
-        required: true
-        type: string
 
 jobs:
 
