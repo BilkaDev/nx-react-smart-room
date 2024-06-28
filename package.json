@@ -8,6 +8,8 @@
     "test": "nx run-many --all --target=test --parallel",
     "lint:check": "nx run-many --all --target=lint --parallel",
     "lint:fix": "nx run-many --all --target=lint --parallel --fix",
+    "lint-smart-room:check": "eslint \"./apps/smart-room/**/*.{ts,tsx}\"",
+    "lint-smart-room:fix": "eslint \"./apps/smart-room/**/*.{ts,tsx}\" --fix",
     "format:fix": "nx format:write --configuration ./.prettierrc",
     "format:check": "nx format:check --configuration ./.prettierrc",
     "code:check": "npm run format:check && npm run lint:check",
