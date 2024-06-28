@@ -3,6 +3,7 @@ name: Github Variables
 on:
   push:
     branches:
+      - features/*
       - master
       - develop
   pull_request:
