@@ -12,6 +12,7 @@
     "format:check": "nx format:check --configuration ./.prettierrc",
     "code:check": "npm run format:check && npm run lint:check",
     "code:fix": "npm run format:fix && npm run lint:fix",
+    "prettier:check": "prettier --check 'apps/*/src/**/*.{js,ts}'",
     "prepare": "husky"
   },
   "private": true,
