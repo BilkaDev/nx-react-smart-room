@@ -62,7 +62,7 @@ jobs:
     if: ${{ needs.set-variables.outputs.can_deploy_on_dev == 'true' }}
     uses: ./.github/workflows/deploy.yml
     with:
-      app-url: ${{ env.DEV_APP_URL }}
+      app-url: ${{ vars.DEVAPP_URL }}
 
 
 
