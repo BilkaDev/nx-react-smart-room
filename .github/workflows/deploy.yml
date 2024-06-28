@@ -17,6 +17,5 @@ jobs:
 
       - name: Deploy Application
         run: |
-          echo "Deploying to ${APP_ENV} environment"
           echo "Application URL: ${{ inputs.app-url }}"
 
