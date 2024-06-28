@@ -10,8 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: build
-    if: ${{ github.event.inputs.environment == 'deploy' }}
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v2
