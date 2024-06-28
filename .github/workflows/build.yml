@@ -21,7 +21,6 @@ jobs:
   check-lint:
     name: Run linter and prettier
     runs-on: ubuntu-20.04
-    needs: set-variables
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
